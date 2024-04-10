@@ -7,7 +7,31 @@
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    
+    <div class="container">
+        <!-- Stats container -->
+        <div class="stats-container">
+            <div class="details">
+                <h1>Todo App</h1>
+                <p>Keep it up</p>
+                <div id="progressBar">
+                    <div id="progress"></div>
+                </div>
+            </div>
+            <div class="stats-numbers">
+                <p id="numbers">2 / 3</p>
+            </div>
+        </div>
+
+        <!-- The input form -->
+        <form action="">
+            <input type="text" placeholder="Enter your task here...">
+            <button type="submit">+</button>
+        </form>
+
+        <!-- The task list -->
+        <ul class="task-list"></ul>
+
+    </div>
 
     <script src="./app.js"></script>
 </body>
