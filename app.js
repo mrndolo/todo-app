@@ -1,4 +1,18 @@
+document.addEventListener("DOMContentLoaded", ()=> {
+    const storedTasks = JSON.parse(localStorage.getItem('tasks'))
+
+    if(storedTasks){
+        storedTasks.forEach((task) => tasks.push(task))
+        updateTasksList();
+        updateStats;
+    }
+})
+
 let tasks = [];
+
+const saveTasks = ()=>{
+    localStorage.setItem(`tasks`, JSON.stringify(tasks))
+}
 
 const addTask = ()=> {
     const taskInput = document.getElementById('taskInput')
@@ -6,10 +20,51 @@ const addTask = ()=> {
 
     if(text){
         tasks.push({text:text, completed: false})
-        updateTasksList()
+        updateTasksList();
+        updateStats();
+        saveTasks();
     }
     // console.log(tasks);
 };
+
+// Deleting function
+const deleteTask = (index)=>{
+    tasks.splice(index, 1);
+    updateTasksList();
+    updateStats();
+    saveTasks();
+}
+
+// Edit function
+const editTask = (index) =>{
+    const taskInput = document.getElementById("taskInput")
+    taskInput.value = tasks[index].text
+
+    tasks.splice(index, 1);
+    updateTasksList();
+    updateStats();
+    saveTasks();
+}
+
+const toggleTaskComplete = (index) =>{
+    tasks[index].completed = !tasks[index].completed;
+    console.log({tasks});
+    updateStats();
+    saveTasks();
+}
+
+// updating the stats
+const updateStats = ()=>{
+    const completedTasks = tasks.filter((task) => task.completed).length;
+    const totalTasks = tasks.length;
+    const progress = (completedTasks / totalTasks) * 100;
+    const progressBar = document.getElementById("progress");
+    // console.log(progress);
+
+    progressBar.style.width = `${progress}%`;
+
+    document.getElementById(`numbers`).innerText = `${completedTasks} / ${totalTasks}`;
+}
 
 // Updating tasks in the UI
 const updateTasksList = ()=>{
@@ -29,7 +84,6 @@ const updateTasksList = ()=>{
                 <img src="./img/edit.png" onClick="editTask(${index})" />
                 <img src="./img/bin.png" onClick="deleteTask(${index})" />
             </div>
-        
         </div>
         `;
 
